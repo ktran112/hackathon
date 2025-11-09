@@ -1,6 +1,8 @@
 package hackathon.qolmods.mixin;
 
 import hackathon.qolmods.ui.InventorySorter;
+import hackathon.qolmods.ui.SortInventoryC2SPacket;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.mixin.screen.ScreenAccessor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -30,10 +32,10 @@ public abstract class InventoryScreenMixin extends HandledScreen<PlayerScreenHan
         this.addDrawableChild(ButtonWidget.builder(
                 Text.literal("Sort"),
                 button -> {
-                    if (this.client != null && this.client.player != null) {
-                        InventorySorter sorter = new InventorySorter();
-                        sorter.groupInventory(this.client.player);
-                    }
+                    ClientPlayNetworking.send(new SortInventoryC2SPacket());
+                    MinecraftClient.getInstance().execute(() -> {
+                        this.init(MinecraftClient.getInstance(), this.width, this.height);
+                    });
                 }
         ).dimensions(buttonX, buttonY, 25, 15).build());
     }

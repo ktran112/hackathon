@@ -15,12 +15,12 @@
 	"icon": "assets/qolmods/icon.png",
 	"environment": "*",
 	"entrypoints": {
-      "client": [
-        "hackathon.qolmods.hackathonQoLClient",
-        "hackathon.qolmods.healthbarmod.HealthBarMod",
-        "hackathon.qolmods.PlayerCoordinates.CoordinatesMod"
+        "client": [
+          "hackathon.qolmods.hackathonQoLClient",
+          "hackathon.qolmods.healthbarmod.HealthBarMod",
+          "hackathon.qolmods.PlayerCoordinates.CoordinatesMod"
 
-      ],
+        ],
 		"main": [
 			"hackathon.qolmods.qolMods"
 		],

@@ -33,7 +33,7 @@ public class InventorySorter {
         Map<Item, ArrayList<ItemStack>> grouped = new HashMap<>();
         PlayerInventory inventory = player.getInventory();
 
-        for (int i = HOTBAR_SIZE; i < inventory.size() - 1; i++) {
+        for (int i = HOTBAR_SIZE; i < INVENTORY_MAX_COUNT; i++) {
             ItemStack stack = inventory.getStack(i);
 
             if(!stack.isEmpty()) {
@@ -77,20 +77,29 @@ public class InventorySorter {
 
         for (Map.Entry<Item, ArrayList<ItemStack>> entry: sortedEntries) {
             ArrayList<ItemStack> stacks = entry.getValue();
-            int totalCount = 0;
-            Item item = stacks.get(0).getItem();
             int maxStackSize = stacks.get(0).getMaxCount();
+            Item item = stacks.get(0).getItem();
+            if (maxStackSize == 1) {
+                for (ItemStack stack : stacks) {
+                    if (newInventoryIndex < INVENTORY_MAX_COUNT) {
+                        newInventory[newInventoryIndex] = stack.copy();
+                        newInventoryIndex++;
+                    }
+                }
+            } else {
+                int totalCount = 0;
 
-            for (ItemStack stack : stacks) {
-                totalCount += stack.getCount();
-            }
+                for (ItemStack stack : stacks) {
+                    totalCount += stack.getCount();
+                }
 
-            while (totalCount > 0 && newInventoryIndex < INVENTORY_MAX_COUNT) {
-                int stackSize = Math.min(maxStackSize, totalCount);
-                ItemStack merged = new ItemStack(item, stackSize);
-                newInventory[newInventoryIndex] = merged;
-                newInventoryIndex++;
-                totalCount -= stackSize;
+                while (totalCount > 0 && newInventoryIndex < INVENTORY_MAX_COUNT) {
+                    int stackSize = Math.min(maxStackSize, totalCount);
+                    ItemStack merged = new ItemStack(item, stackSize);
+                    newInventory[newInventoryIndex] = merged;
+                    newInventoryIndex++;
+                    totalCount -= stackSize;
+                }
             }
         }
         for (int i = 0; i < newInventory.length; i++) {

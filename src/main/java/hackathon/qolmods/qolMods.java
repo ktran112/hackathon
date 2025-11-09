@@ -1,9 +1,13 @@
 package hackathon.qolmods;
 
+import hackathon.qolmods.ui.InventorySorter;
 import hackathon.qolmods.ui.ItemReplacer;
+import hackathon.qolmods.ui.SortInventoryC2SPacket;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
@@ -28,6 +32,14 @@ public class qolMods implements ModInitializer {
 	public void onInitialize() {
         ItemReplacer itemReplacer = new ItemReplacer();
 
+        PayloadTypeRegistry.playC2S().register(SortInventoryC2SPacket.ID, SortInventoryC2SPacket.CODEC);
+
+        ServerPlayNetworking.registerGlobalReceiver(SortInventoryC2SPacket.ID, (payload, context) -> {
+            context.server().execute(() -> {
+                InventorySorter sorter = new InventorySorter();
+                sorter.groupInventory(context.player());
+            });
+        });
         // Listen to player breaking blocks.
         PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
             ItemStack stack = player.getMainHandStack();
