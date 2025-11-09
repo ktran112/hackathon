@@ -18,8 +18,8 @@
       "client": [
         "hackathon.qolmods.hackathonQoLClient",
         "hackathon.qolmods.healthbarmod.HealthBarMod",
-        "hackathon.qolmods.PlayerCoordinates.CoordinatesMod"
-
+        "hackathon.qolmods.PlayerCoordinates.CoordinatesMod",
+        "hackathon.qolmods.client.ArmorHud"
       ],
 		"main": [
 			"hackathon.qolmods.qolMods"
@@ -41,4 +41,4 @@
 	"suggests": {
 		"another-mod": "*"
 	}
-}1
+}

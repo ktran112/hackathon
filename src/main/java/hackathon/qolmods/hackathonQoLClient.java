@@ -1,5 +1,6 @@
 package hackathon.qolmods;
 
+import hackathon.qolmods.client.ArmorHud;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
@@ -21,14 +22,17 @@ import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.world.World;
 
 public class hackathonQoLClient implements ClientModInitializer {
-
     @Override
     public void onInitializeClient() {
+
 
     }
 
 
-
-
-
 }
+
+
+
+
+
+
