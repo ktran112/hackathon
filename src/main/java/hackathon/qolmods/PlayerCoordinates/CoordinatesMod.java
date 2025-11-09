@@ -32,7 +32,7 @@ public class CoordinatesMod implements ClientModInitializer {
             int rectWidth = 220;
             int rectHeight = 20;
             int xPos = (screenWidth - rectWidth) / 2;
-            int yPos = (int) (screenHeight / 1.20);
+            int yPos = (int) (screenHeight / 1.275);
 
             //dark background box
             drawContext.fill(xPos, yPos, xPos + rectWidth, yPos + rectHeight, 0x88000000);
